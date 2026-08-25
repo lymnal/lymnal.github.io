@@ -21,14 +21,11 @@
   a { color: var(--navy); }
 
   header { background: var(--navy); color: #F4EFE6; padding: 72px 0 64px; }
-  .mono {
-    width: 64px; height: 64px; border-radius: 14px; background: #F4EFE6; color: var(--navy);
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 800; font-size: 24px; letter-spacing: .5px; margin-bottom: 28px;
+  .face {
+    width: 72px; height: 72px; border-radius: 16px; object-fit: cover;
+    display: block; margin-bottom: 28px;
+    border: 2px solid rgba(244,239,230,.35); box-shadow: 0 2px 10px rgba(0,0,0,.35);
   }
-  /* To use a headshot instead: replace .mono div with
-     <img class="face" src="me.jpg" alt="Ethan Sam"> and add
-     .face { width:64px; height:64px; border-radius:14px; object-fit:cover; } */
   header h1 { font-size: 40px; line-height: 1.15; letter-spacing: -.5px; font-weight: 800; }
   header .lane { color: #C9A96A; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; font-size: 13px; margin-bottom: 14px; }
   header p.sub { color: #C7D0DC; max-width: 560px; margin-top: 18px; font-size: 19px; }
@@ -70,6 +67,48 @@
   .receipts li { padding: 10px 0 10px 30px; position: relative; color: var(--ink); font-size: 16.5px; }
   .receipts li::before { content: "▸"; position: absolute; left: 4px; color: var(--amber); font-weight: 700; }
 
+  .capture { padding: 72px 0; }
+  .capture-card {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
+    border-radius: 20px; padding: 52px 48px; color: #F4EFE6;
+    box-shadow: 0 18px 44px -18px rgba(22,40,63,.45);
+    position: relative; overflow: hidden;
+  }
+  .capture-card::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(420px 220px at 88% -10%, rgba(201,169,106,.18), transparent 70%),
+      radial-gradient(360px 200px at -5% 110%, rgba(201,169,106,.10), transparent 70%);
+  }
+  .capture-card > * { position: relative; }
+  .capture-card .kicker { color: #C9A96A; }
+  .capture-card h2 { color: #F4EFE6; font-size: 28px; }
+  .capture-card p.lead { color: #C7D0DC; margin-top: 8px; }
+  .capture-form { display: flex; gap: 0; margin-top: 30px; max-width: 520px;
+    background: #F4EFE6; border-radius: 12px; padding: 5px;
+    box-shadow: inset 0 1px 2px rgba(22,40,63,.12); }
+  .capture-form input[type="email"] {
+    flex: 1; min-width: 0; border: 0; background: transparent; outline: none;
+    padding: 12px 16px; font: inherit; font-size: 16px; color: var(--ink);
+  }
+  .capture-form input[type="email"]::placeholder { color: #8A94A0; }
+  .capture-form button {
+    border: 0; cursor: pointer; border-radius: 9px; padding: 12px 24px;
+    background: var(--navy); color: #F4EFE6; font: inherit; font-weight: 700; font-size: 15.5px;
+    transition: background .15s ease, transform .1s ease; white-space: nowrap;
+  }
+  .capture-form button:hover { background: var(--navy-2); }
+  .capture-form button:active { transform: scale(.98); }
+  .capture-form:focus-within { box-shadow: inset 0 1px 2px rgba(22,40,63,.12), 0 0 0 3px rgba(201,169,106,.55); }
+  .capture-fine { margin-top: 16px; font-size: 13.5px; color: #9DAABB; }
+  @media (max-width: 560px) {
+    .capture-card { padding: 38px 26px; }
+    .capture-form { flex-direction: column; background: transparent; padding: 0; box-shadow: none; gap: 10px; }
+    .capture-form input[type="email"] { background: #F4EFE6; border-radius: 12px; padding: 14px 16px; }
+    .capture-form:focus-within { box-shadow: none; }
+    .capture-form button { padding: 14px 24px; border-radius: 12px; background: #C9A96A; color: var(--navy); }
+  }
+
   footer { background: var(--navy); color: #C7D0DC; padding: 44px 0; font-size: 15.5px; }
   footer a { color: #F4EFE6; font-weight: 700; }
   .foot-line { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
@@ -79,7 +118,7 @@
 
 <header>
   <div class="wrap">
-    <div class="mono">ES</div>
+    <img class="face" src="me.png" alt="Ethan Sam" width="72" height="72">
     <div class="lane">AI workflows for recruiting agencies</div>
     <h1>Candidate submittals that read like evidence,<br>not adjectives.</h1>
     <p class="sub">I'm Ethan Sam. I build sourcing and submittal systems for boutique
@@ -156,6 +195,24 @@
     </ul>
     <div class="cta-row" style="margin-top:28px">
       <a class="btn" style="background:var(--navy); color:#F4EFE6" href="mailto:esam5556@gmail.com?subject=Retainer%20—%2020%20minutes">Email me about a retainer</a>
+    </div>
+  </div>
+</section>
+
+<section class="capture">
+  <div class="wrap">
+    <div class="capture-card">
+      <div class="kicker">Field notes</div>
+      <h2>Sourcing tactics that show their work</h2>
+      <p class="lead">An occasional email when I have something worth your desk time —
+      a new example packet, a sourcing play with receipts, or an early price on
+      whatever I build next. No drip sequence, no daily anything.</p>
+      <form class="capture-form" action="https://app.gumroad.com/follow_from_embed_form" method="post">
+        <input type="hidden" name="seller_id" value="5730072064580">
+        <input type="email" name="email" required placeholder="you@youragency.com" autocomplete="email" aria-label="Email address">
+        <button type="submit">Get the notes</button>
+      </form>
+      <p class="capture-fine">You'll get a confirmation email first. Unsubscribe anytime, one click.</p>
     </div>
   </div>
 </section>
