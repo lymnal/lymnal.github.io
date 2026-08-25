@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ethan Sam — AI workflows for recruiting agencies</title>
+<meta name="description" content="I build evidence-grade candidate sourcing and submittal systems for boutique recruiting agencies. Resume + screen notes in, client-ready packet out — with a hard no-fabrication rule.">
+<style>
+  :root {
+    --navy: #16283F; --navy-2: #1F3552; --cream: #FAF7F2; --ink: #22303F;
+    --muted: #5C6B7A; --line: #E5DFD3; --green: #1E7D4E; --amber: #B4690E;
+    --card: #FFFFFF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--cream); color: var(--ink);
+    font: 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+  a { color: var(--navy); }
+
+  header { background: var(--navy); color: #F4EFE6; padding: 72px 0 64px; }
+  .mono {
+    width: 64px; height: 64px; border-radius: 14px; background: #F4EFE6; color: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 24px; letter-spacing: .5px; margin-bottom: 28px;
+  }
+  /* To use a headshot instead: replace .mono div with
+     <img class="face" src="me.jpg" alt="Ethan Sam"> and add
+     .face { width:64px; height:64px; border-radius:14px; object-fit:cover; } */
+  header h1 { font-size: 40px; line-height: 1.15; letter-spacing: -.5px; font-weight: 800; }
+  header .lane { color: #C9A96A; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; font-size: 13px; margin-bottom: 14px; }
+  header p.sub { color: #C7D0DC; max-width: 560px; margin-top: 18px; font-size: 19px; }
+  .cta-row { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 13px 22px; border-radius: 10px; text-decoration: none;
+    font-weight: 700; font-size: 15.5px; border: 1.5px solid transparent;
+  }
+  .btn-solid { background: #F4EFE6; color: var(--navy); }
+  .btn-ghost { border-color: #4A5E78; color: #E8E2D6; }
+  .btn:hover { opacity: .92; }
+
+  section { padding: 64px 0; }
+  section + section { border-top: 1px solid var(--line); }
+  h2 { font-size: 26px; letter-spacing: -.3px; margin-bottom: 10px; }
+  .kicker { color: var(--amber); font-weight: 700; text-transform: uppercase; letter-spacing: .12em; font-size: 12.5px; margin-bottom: 8px; }
+  p.lead { color: var(--muted); max-width: 640px; }
+
+  .fit { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; margin: 30px 0 18px; max-width: 560px; box-shadow: 0 1px 3px rgba(22,40,63,.06); }
+  .fit h3 { font-size: 12.5px; text-transform: uppercase; letter-spacing: .12em; color: var(--navy); margin-bottom: 12px; }
+  .fit-row { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; border-top: 1px solid #F0EAE0; font-size: 15.5px; }
+  .fit-row:first-of-type { border-top: 0; }
+  .strong { color: var(--green); font-weight: 700; }
+  .partial { color: var(--amber); font-weight: 700; }
+  .fit-note { font-size: 14px; color: var(--muted); margin-top: 12px; }
+
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
+  @media (max-width: 700px) { .cards { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 26px;
+    display: flex; flex-direction: column; box-shadow: 0 1px 3px rgba(22,40,63,.06);
+  }
+  .card .price { font-weight: 800; color: var(--navy); font-size: 15px; margin-bottom: 10px; }
+  .card h3 { font-size: 19px; margin-bottom: 8px; letter-spacing: -.2px; }
+  .card p { color: var(--muted); font-size: 15.5px; flex: 1; }
+  .card a { margin-top: 18px; font-weight: 700; font-size: 15.5px; }
+
+  .receipts { list-style: none; margin-top: 26px; max-width: 640px; }
+  .receipts li { padding: 10px 0 10px 30px; position: relative; color: var(--ink); font-size: 16.5px; }
+  .receipts li::before { content: "▸"; position: absolute; left: 4px; color: var(--amber); font-weight: 700; }
+
+  footer { background: var(--navy); color: #C7D0DC; padding: 44px 0; font-size: 15.5px; }
+  footer a { color: #F4EFE6; font-weight: 700; }
+  .foot-line { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="mono">ES</div>
+    <div class="lane">AI workflows for recruiting agencies</div>
+    <h1>Candidate submittals that read like evidence,<br>not adjectives.</h1>
+    <p class="sub">I'm Ethan Sam. I build sourcing and submittal systems for boutique
+    recruiting agencies — resume and screen notes in, client-ready packet out, with a
+    hard rule that nothing goes in front of a client that doesn't trace to a source.</p>
+    <div class="cta-row">
+      <a class="btn btn-solid" href="example-packet.html">See a real packet</a>
+      <a class="btn btn-ghost" href="mailto:esam5556@gmail.com">esam5556@gmail.com</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The work</div>
+    <h2>What lands in your client's inbox</h2>
+    <p class="lead">Every packet screens the candidate against the client's actual
+    requirements — and shows its work. Public code, talks, and published writing are
+    linked on every claim. Where there's a gap, the packet says so.</p>
+
+    <div class="fit">
+      <h3>Fit against your requirements</h3>
+      <div class="fit-row"><span>Go in production, 5+ yrs</span><span class="strong">Strong</span></div>
+      <div class="fit-row"><span>Payments domain</span><span class="strong">Strong</span></div>
+      <div class="fit-row"><span>Kafka at scale</span><span class="strong">Strong</span></div>
+      <div class="fit-row"><span>Card networks (ISO 8583)</span><span class="partial">Partial</span></div>
+      <div class="fit-note">That orange row is the point. A wall of green reads like
+      marketing; one honest <em>Partial</em> reads like diligence — and it's what makes
+      clients stop second-guessing your submittals.</div>
+    </div>
+
+    <a href="example-packet.html"><strong>Open the full example packet →</strong></a>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Products</div>
+    <h2>Own the system</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="price">$49 · PDF + templates</div>
+        <h3>Sourcing Without LinkedIn Recruiter</h3>
+        <p>The operator's playbook: find candidates through their work — repositories,
+        talks, published code — not their profiles. X-ray search cookbook, outreach
+        sequences, and the tracker included.</p>
+        <a href="https://esamurai6.gumroad.com/l/sourcing-playbook">Get the playbook →</a>
+      </div>
+      <div class="card">
+        <div class="price">$249 · one-time, 30 days of setup help</div>
+        <h3>The Candidate Packet System</h3>
+        <p>Three branded templates plus an AI workflow with a zero-fabrication rule.
+        Resume + your screen notes → the packet above, a submittal email, and an open-questions
+        list. A system you own — not another per-seat subscription.</p>
+        <a href="https://esamurai6.gumroad.com/l/packet-system">Get the system →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The service</div>
+    <h2>Or have me run it</h2>
+    <p class="lead">For a small number of teams I run the whole motion — sourcing
+    through submittal — as a monthly retainer. If the packet above is the kind of
+    output you'd want on every search, that's a 20-minute conversation.</p>
+    <ul class="receipts">
+      <li>I'm a software engineer; these systems run my own recruiting work daily.</li>
+      <li>On one live search, repository search produced four strong candidates where
+      profile search produced one — same role, same bar.</li>
+      <li>Zero-fabrication, enforced: missing facts become open questions for the
+      recruiter, never claims to the client.</li>
+    </ul>
+    <div class="cta-row" style="margin-top:28px">
+      <a class="btn" style="background:var(--navy); color:#F4EFE6" href="mailto:esam5556@gmail.com?subject=Retainer%20—%2020%20minutes">Email me about a retainer</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-line">
+    <span>Ethan Sam — AI workflows for recruiting agencies</span>
+    <span><a href="mailto:esam5556@gmail.com">esam5556@gmail.com</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

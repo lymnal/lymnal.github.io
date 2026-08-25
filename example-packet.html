@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jordan Alvarez — Senior Backend Engineer (Payments Platform)</title>
+<style>
+  /* ============ BRAND (edit these to match your agency) ============ */
+  :root {
+    --brand: #16537e;          /* primary brand color */
+    --brand-soft: #eef4f9;     /* tint for panels */
+    --ink: #182230;
+    --muted: #5a6675;
+    --rule: #dfe5ec;
+    --yes: #157f52;
+    --partial: #a06a00;
+    --font-head: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    --font-body: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  }
+  /* ================================================================= */
+  * { box-sizing: border-box; margin: 0; }
+  html { background: #fff; color-scheme: light; }
+  body { font: 15px/1.55 var(--font-body); color: var(--ink); background: #fff;
+         max-width: 52rem; margin: 0 auto; padding: 0 2rem 3rem; }
+  header { display: flex; justify-content: space-between; align-items: baseline;
+           border-bottom: 3px solid var(--brand); padding: 1.6rem 0 .8rem;
+           margin-bottom: 1.6rem; }
+  .agency { font-family: var(--font-head); font-weight: 700; font-size: 1.05rem;
+            color: var(--brand); letter-spacing: .02em; }
+  .agency small { display: block; font-weight: 400; color: var(--muted);
+                  letter-spacing: 0; }
+  .meta { text-align: right; font-size: .82rem; color: var(--muted); }
+  h1 { font-family: var(--font-head); font-size: 1.9rem; line-height: 1.15; }
+  .role-line { font-size: 1.05rem; color: var(--muted); margin: .2rem 0 1rem; }
+  .role-line strong { color: var(--brand); font-weight: 600; }
+  .headline { font-size: 1.06rem; background: var(--brand-soft);
+              border-left: 4px solid var(--brand); padding: .9rem 1.1rem;
+              border-radius: 0 8px 8px 0; margin: 1rem 0 1.4rem; }
+  h2 { font-family: var(--font-head); font-size: .82rem; text-transform: uppercase;
+       letter-spacing: .14em; color: var(--brand); margin: 1.7rem 0 .6rem; }
+  p { margin: .5rem 0; }
+  table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+  th { text-align: left; font-size: .75rem; text-transform: uppercase;
+       letter-spacing: .1em; color: var(--muted); padding: .4rem .6rem;
+       border-bottom: 2px solid var(--ink); }
+  td { padding: .5rem .6rem; border-bottom: 1px solid var(--rule);
+       vertical-align: top; }
+  .v-yes { color: var(--yes); font-weight: 700; white-space: nowrap; }
+  .v-partial { color: var(--partial); font-weight: 700; white-space: nowrap; }
+  ul { padding-left: 1.2rem; margin: .5rem 0; }
+  li { margin: .4rem 0; }
+  .evidence a { color: var(--brand); }
+  .exp-role { margin: .8rem 0; }
+  .exp-role .title { font-weight: 600; }
+  .exp-role .org { color: var(--muted); }
+  .exp-role .dates { float: right; color: var(--muted); font-size: .88rem; }
+  .qa { margin: .7rem 0; }
+  .qa .q { font-weight: 600; }
+  .qa .a { margin: .15rem 0 0 0; }
+  .logistics { display: grid; grid-template-columns: repeat(2, 1fr);
+               gap: .5rem 2rem; background: var(--brand-soft);
+               padding: 1rem 1.2rem; border-radius: 8px; font-size: .93rem; }
+  .logistics div b { display: block; font-size: .72rem; text-transform: uppercase;
+                     letter-spacing: .1em; color: var(--muted); }
+  footer { margin-top: 2.2rem; padding-top: .9rem; border-top: 1px solid var(--rule);
+           font-size: .85rem; color: var(--muted);
+           display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem; }
+  footer .contact b { color: var(--ink); }
+  .sample-note { margin-top: 1rem; font-size: .78rem; color: var(--muted);
+                 font-style: italic; }
+  .credit { margin-top: .5rem; font-size: .68rem; color: var(--muted);
+            letter-spacing: .05em; }
+  @media print {
+    body { padding: 0; font-size: 10.5pt; max-width: none; }
+    a { color: var(--brand); text-decoration: none; }
+    h2, .exp-role, .qa { break-inside: avoid; }
+    @page { margin: 16mm 15mm; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="agency">Meridian Search Partners<small>Technical recruiting, done with evidence</small></div>
+  <div class="meta">
+    Candidate submittal · August 19, 2026<br>
+    Prepared for <strong>Northbridge</strong> · Confidential
+  </div>
+</header>
+
+<h1>Jordan Alvarez</h1>
+<div class="role-line">Presented for <strong>Senior Backend Engineer, Payments Platform</strong> · Chicago (hybrid, 2–3 days)</div>
+
+<div class="headline">A Go engineer with four years of payments infrastructure behind him — he built Harbor's ledger reconciliation service matching ~2M transactions/day — who wants to return to correctness-critical fintech work after two years running high-throughput pricing systems at a logistics SaaS.</div>
+
+<h2>Why this candidate</h2>
+<p>Jordan maps to this role on the two axes that matter: payments-domain depth and production judgment at scale. At Harbor Payments he built the ledger reconciliation service (Go/Postgres, ~2M transactions/day against processor files) and implemented idempotency-key handling across payment intake APIs — work he can discuss at the edge-case level (partial captures, late refunds) without prompting. At Relay Freight he designed an event-driven repricing system on Kafka that cut quote staleness from up to 24 hours to under 5 minutes. He is explicit that he wants back into payments; this is a targeted move, not a spray.</p>
+
+<h2>Fit against your requirements</h2>
+<table>
+  <thead><tr><th style="width:38%">Your requirement</th><th style="width:14%">Fit</th><th>Evidence</th></tr></thead>
+  <tbody>
+    <tr><td>5+ years backend, Go in production</td><td class="v-yes">Strong</td><td>Go primary language since 2019 across Harbor and Relay; owns Relay's pricing service quoting ~40k shipments/day</td></tr>
+    <tr><td>Payments / fintech domain experience</td><td class="v-yes">Strong</td><td>4 years at Harbor Payments: ledger reconciliation (~2M txns/day), idempotency across payment intake APIs</td></tr>
+    <tr><td>Event streaming (Kafka) at scale</td><td class="v-yes">Strong</td><td>Designed Relay's repricing topology himself; fluent on partitioning/ordering tradeoffs — chose at-least-once delivery with idempotent consumers and explains why</td></tr>
+    <tr><td>Postgres depth</td><td class="v-yes">Strong</td><td>Reconciliation service on Postgres; contributor to pgqueue (wrote the batch-dequeue path)</td></tr>
+    <tr><td>Card network integration (ISO 8583, network certs)</td><td class="v-partial">Partial</td><td>Processor-API level experience only, no direct network work — he flagged this gap himself on our screen</td></tr>
+    <tr><td>Operational ownership / on-call maturity</td><td class="v-yes">Strong</td><td>On-call lead for a 6-engineer platform group; reduced pages ~35% by deleting flaky healthchecks and adding SLOs</td></tr>
+  </tbody>
+</table>
+
+<h2>Highlights &amp; evidence</h2>
+<ul class="evidence">
+  <li>Built Harbor's ledger reconciliation service matching ~2M transactions/day against processor files — and can walk through the ugly edge cases (partial captures, late refunds) unprompted.</li>
+  <li>Migrated Relay's repricing from a nightly batch job to event-driven on Kafka; quote staleness went from up to 24h to under 5 minutes.</li>
+  <li>Public code: <a href="#">rate-shield</a>, a Go token-bucket rate limiter with per-tenant overrides (340 stars), and the batch-dequeue path in <a href="#">pgqueue</a>. <em>(Links are placeholders in this fictional sample.)</em></li>
+  <li>After a double-charge incident at Harbor, drove the fix — idempotency keys with a unique-constraint backstop — and owns the story directly rather than deflecting.</li>
+</ul>
+
+<h2>Experience snapshot</h2>
+<div class="exp-role">
+  <span class="dates">Mar 2023 – present</span>
+  <span class="title">Senior Backend Engineer</span> · <span class="org">Relay Freight (Series C logistics SaaS)</span>
+  <p>Owns the Go pricing service quoting ~40k shipments/day; led the batch→event-driven repricing migration; on-call lead for a 6-engineer platform group.</p>
+</div>
+<div class="exp-role">
+  <span class="dates">Jun 2019 – Mar 2023</span>
+  <span class="title">Backend Engineer</span> · <span class="org">Harbor Payments</span>
+  <p>Built ledger reconciliation (Go/Postgres, ~2M txns/day); implemented idempotency-key handling across payment intake APIs; mentored two juniors to mid-level.</p>
+</div>
+<div class="exp-role">
+  <span class="dates">Jul 2016 – Jun 2019</span>
+  <span class="title">Software Engineer</span> · <span class="org">Midwest Insurance Group</span>
+  <p>Internal claims tooling (Java/Spring); moved the team from quarterly to biweekly deploys.</p>
+</div>
+
+<h2>From our screen</h2>
+<div class="qa">
+  <div class="q">Why is he moving?</div>
+  <p class="a">The pricing domain at Relay feels "done" to him; he misses correctness-critical work and wants back into payments specifically. This search is targeted, not opportunistic.</p>
+</div>
+<div class="qa">
+  <div class="q">How deep is the Kafka experience really?</div>
+  <p class="a">He designed the repricing topology himself and discusses ordering and partitioning tradeoffs fluently — including why he chose at-least-once delivery with idempotent consumers over exactly-once semantics.</p>
+</div>
+<div class="qa">
+  <div class="q">What's the honest gap?</div>
+  <p class="a">No direct card-network experience (ISO 8583, network certifications) — he works at the processor-API layer. He raised this himself before we did.</p>
+</div>
+<div class="qa">
+  <div class="q">Management ambitions?</div>
+  <p class="a">Wants to stay senior IC next role. Comfortable as informal tech lead (has done it at Relay), explicitly not seeking people management.</p>
+</div>
+
+<h2>Logistics</h2>
+<div class="logistics">
+  <div><b>Compensation expectation</b>$195–210k base; flexible on bonus/equity mix</div>
+  <div><b>Notice period / availability</b>3 weeks (wants a clean on-call handoff)</div>
+  <div><b>Location / work setup</b>Chicago; hybrid 2–3 days works; will not relocate</div>
+  <div><b>Work authorization</b>US citizen</div>
+  <div><b>Interview availability</b>Weekdays before 11am CT or after 4pm CT</div>
+  <div><b>Other processes</b>One other process, early stage</div>
+</div>
+
+<footer>
+  <div class="contact">Submitted by <b>Sam Rivera</b> · Meridian Search Partners</div>
+  <div>sam@meridiansearch.example · +1 (555) 014-2288</div>
+</footer>
+<div class="credit">Evidence-Grade Submittal — every claim traceable to source.</div>
+
+<p class="sample-note">This is the included worked example: every name, company, and number is fictional, produced from the sample resume and screen notes in this folder by the packet-writer skill's workflow.</p>
+
+</body>
+</html>
