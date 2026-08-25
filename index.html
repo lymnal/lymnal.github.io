@@ -84,29 +84,21 @@
   .capture-card .kicker { color: #C9A96A; }
   .capture-card h2 { color: #F4EFE6; font-size: 28px; }
   .capture-card p.lead { color: #C7D0DC; margin-top: 8px; }
-  .capture-form { display: flex; gap: 0; margin-top: 30px; max-width: 520px;
-    background: #F4EFE6; border-radius: 12px; padding: 5px;
-    box-shadow: inset 0 1px 2px rgba(22,40,63,.12); }
-  .capture-form input[type="email"] {
-    flex: 1; min-width: 0; border: 0; background: transparent; outline: none;
-    padding: 12px 16px; font: inherit; font-size: 16px; color: var(--ink);
+  .capture-cta {
+    display: inline-block; margin-top: 30px; padding: 15px 30px; border-radius: 12px;
+    background: #C9A96A; color: var(--navy); text-decoration: none;
+    font-weight: 800; font-size: 16.5px; letter-spacing: -.1px;
+    box-shadow: 0 6px 18px -6px rgba(201,169,106,.55);
+    transition: transform .12s ease, box-shadow .12s ease, background .15s ease;
   }
-  .capture-form input[type="email"]::placeholder { color: #8A94A0; }
-  .capture-form button {
-    border: 0; cursor: pointer; border-radius: 9px; padding: 12px 24px;
-    background: var(--navy); color: #F4EFE6; font: inherit; font-weight: 700; font-size: 15.5px;
-    transition: background .15s ease, transform .1s ease; white-space: nowrap;
-  }
-  .capture-form button:hover { background: var(--navy-2); }
-  .capture-form button:active { transform: scale(.98); }
-  .capture-form:focus-within { box-shadow: inset 0 1px 2px rgba(22,40,63,.12), 0 0 0 3px rgba(201,169,106,.55); }
+  .capture-cta:hover { background: #D6B77C; transform: translateY(-1px);
+    box-shadow: 0 10px 24px -8px rgba(201,169,106,.65); }
+  .capture-cta:active { transform: translateY(0) scale(.985); }
+  .capture-cta:focus-visible { outline: 3px solid rgba(244,239,230,.7); outline-offset: 3px; }
   .capture-fine { margin-top: 16px; font-size: 13.5px; color: #9DAABB; }
   @media (max-width: 560px) {
     .capture-card { padding: 38px 26px; }
-    .capture-form { flex-direction: column; background: transparent; padding: 0; box-shadow: none; gap: 10px; }
-    .capture-form input[type="email"] { background: #F4EFE6; border-radius: 12px; padding: 14px 16px; }
-    .capture-form:focus-within { box-shadow: none; }
-    .capture-form button { padding: 14px 24px; border-radius: 12px; background: #C9A96A; color: var(--navy); }
+    .capture-cta { display: block; text-align: center; }
   }
 
   footer { background: var(--navy); color: #C7D0DC; padding: 44px 0; font-size: 15.5px; }
@@ -207,12 +199,9 @@
       <p class="lead">An occasional email when I have something worth your desk time —
       a new example packet, a sourcing play with receipts, or an early price on
       whatever I build next. No drip sequence, no daily anything.</p>
-      <form class="capture-form" action="https://app.gumroad.com/follow_from_embed_form" method="post">
-        <input type="hidden" name="seller_id" value="5730072064580">
-        <input type="email" name="email" required placeholder="you@youragency.com" autocomplete="email" aria-label="Email address">
-        <button type="submit">Get the notes</button>
-      </form>
-      <p class="capture-fine">You'll get a confirmation email first. Unsubscribe anytime, one click.</p>
+      <a class="capture-cta" href="https://esamurai6.gumroad.com/subscribe">Get the notes →</a>
+      <p class="capture-fine">One field on the next page, then a confirmation email.
+      Unsubscribe anytime, one click.</p>
     </div>
   </div>
 </section>
