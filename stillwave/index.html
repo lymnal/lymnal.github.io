@@ -204,6 +204,7 @@ footer{margin-top:24px;font-size:12px;color:var(--faint);line-height:1.55;max-wi
       <p class="note" id="guideNote">A calm voice talks you through the first minute, then leaves you to the sound. Three neural voices are built into the app, so it sounds the same on every phone. Pick the one you like and hear it before you commit.</p>
       <p class="hint">Headphones on, volume low. The beat is made in your brainstem, not in the air, so louder does not entrain harder. On iPhone, set the ring/silent switch to ring. <span class="keys"><kbd>Space</kbd> starts and pauses, <kbd>Esc</kbd> ends.</span></p>
       <div class="practice" id="practice"></div>
+      <label class="toggle" style="margin-top:14px"><input type="checkbox" id="share"><span>Send an anonymous session count (preset, length, a random device id; no account, no personal data) so I can tell whether Stillwave is used</span></label>
     </div>
 
     <div class="maincol">
@@ -262,7 +263,7 @@ footer{margin-top:24px;font-size:12px;color:var(--faint);line-height:1.55;max-wi
         </div>
       </details>
 
-      <footer>Not a medical device. Keep the volume low and never use while driving. If you have epilepsy, a seizure history, or a heart-rhythm condition, ask a clinician before using entrainment audio. The presets are session designs built on the evidence above, not prescriptions. Your practice log never leaves this device.</footer>
+      <footer>Not a medical device. Keep the volume low and never use while driving. If you have epilepsy, a seizure history, or a heart-rhythm condition, ask a clinician before using entrainment audio. The presets are session designs built on the evidence above, not prescriptions. Your practice log never leaves this device; the optional anonymous session count sends only a preset name, a length, and a random id.</footer>
     </div>
   </div>
 </div>
@@ -338,8 +339,8 @@ const TONE_SCALE=.28,NOISE_SCALE={off:0,pink:.42,brown:.26};
 const FADE_IN=4,BR_LO=.55,BR_HI=1,ORB_LO=.62,ORB_HI=1;
 
 /* ---------- state ---------- */
-const S={presetId:'deep',minutes:20,master:.8,tone:.5,noise:.5,bells:true,breathSound:true,dimAfter:30,interval:0,warm:false,haptics:false,customHz:8,guide:true,voice:'ava',mode:'binaural',carrier:200,noiseType:'pink',breath:'longexhale'};
-const PERSIST=['presetId','minutes','master','tone','bells','breathSound','dimAfter','interval','warm','haptics','customHz','guide','voice'];
+const S={presetId:'deep',minutes:20,master:.8,tone:.5,noise:.5,bells:true,breathSound:true,dimAfter:30,interval:0,warm:false,haptics:false,customHz:8,guide:true,voice:'ava',share:true,mode:'binaural',carrier:200,noiseType:'pink',breath:'longexhale'};
+const PERSIST=['presetId','minutes','master','tone','bells','breathSound','dimAfter','interval','warm','haptics','customHz','guide','voice','share'];
 function load(){try{const j=JSON.parse(localStorage.getItem('stillwave.v1')||'{}');PERSIST.forEach(k=>{if(j[k]!==undefined)S[k]=j[k];});}catch(e){}
   if(!DURS.includes(S.minutes))S.minutes=DURS.reduce((a,b)=>Math.abs(b-S.minutes)<Math.abs(a-S.minutes)?b:a);
   if(!PRESETS.some(p=>p.id===S.presetId))S.presetId='deep';S.customHz=clamp(+S.customHz||8,.5,40);}
@@ -396,7 +397,7 @@ function shapeText(s){
 
 /* ---------- practice log ---------- */
 function readLog(){try{return JSON.parse(localStorage.getItem('stillwave.log')||'[]');}catch(e){return [];}}
-function logSession(minutes,pid){try{const l=readLog();l.push({t:Date.now(),m:minutes,p:pid,pre:preRating});localStorage.setItem('stillwave.log',JSON.stringify(l.slice(-500)));}catch(e){}preRating=null;renderPractice();}
+function logSession(minutes,pid,completed){try{const l=readLog();l.push({t:Date.now(),m:minutes,p:pid,pre:preRating});localStorage.setItem('stillwave.log',JSON.stringify(l.slice(-500)));}catch(e){}ping(minutes,pid,!!completed);preRating=null;renderPractice();}
 function dayKey(ts){const d=new Date(ts);return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
 function weekCount(){return readLog().filter(x=>Date.now()-x.t<7*864e5).length;}
 function renderPractice(){
@@ -532,13 +533,13 @@ function hardStop(){guideStop();teardownTone();stopNoise();cancelBells();E.statu
 function end(){
   if(E.status==='idle'||E.status==='ending')return;
   const ctx=E.ctx,now=ctx.currentTime,e=elapsed();cancelBells();
-  if(e>=60){logSession(Math.max(1,Math.round(e/60)),E.session.preset.id);checkMode='post';}
+  if(e>=60){logSession(Math.max(1,Math.round(e/60)),E.session.preset.id,false);checkMode='post';}
   if(ctx.state!=='running'){hardStop();return;}
   const g=E.fade.gain;g.cancelScheduledValues(now);g.setValueAtTime(fadeAt(E.session,e),now);g.linearRampToValueAtTime(0,now+1.2);
   E.status='ending';ui();setTimeout(hardStop,1300);
 }
 function finish(){
-  const s=E.session;logSession(Math.round(s.total/60),s.preset.id);checkMode='post';hardStop();renderCheck();const wk=weekCount();
+  const s=E.session;logSession(Math.round(s.total/60),s.preset.id,true);checkMode='post';hardStop();renderCheck();const wk=weekCount();
   E.justFinished=true;$('cue').textContent='Complete';$('phase').textContent='Session complete · '+fmt(s.total)+' of '+s.preset.name+(wk>1?' · '+wk+' this week':'');$('timer').textContent='0:00';$('barTimer').textContent='0:00';
 }
 function restart(){
@@ -667,12 +668,22 @@ function renderPattern(active){const pat=BREATHS[S.breath],el=$('pat');const sho
 function selectPreset(id){S.presetId=id;applyPresetDefaults();E.justFinished=false;save();renderPresetInfo();if(E.status!=='idle')restart();else ui();}
 function setMinutes(m){S.minutes=m;E.justFinished=false;save();renderChart();ui();}
 
+/* ---------- anonymous session ping (opt-out) ---------- */
+const BUILD='2026-09-05',PING={url:'https://utpjefooygaqdhpgzxjy.supabase.co',key:'sb_publishable_6yJTtklneH_SRFOHr89d_g_xQ-QfggN'};
+let lastPingId=null;
+function deviceId(){try{let d=localStorage.getItem('stillwave.device');if(!d){d=crypto.randomUUID();localStorage.setItem('stillwave.device',d);}return d;}catch(e){return 'nostore-'+Math.random().toString(16).slice(2,14);}}
+function platform(){const u=navigator.userAgent;return /iPhone|iPad/.test(u)?'ios':/Android/.test(u)?'android':/Mac/.test(u)?'mac':/Win/.test(u)?'windows':'other';}
+function pingSend(path,body){try{fetch(PING.url+path,{method:'POST',keepalive:true,headers:{'content-type':'application/json',apikey:PING.key,authorization:'Bearer '+PING.key,prefer:'return=minimal'},body:JSON.stringify(body)}).catch(()=>{});}catch(e){}}
+function ping(minutes,pid,completed){if(!S.share||!window.crypto||!crypto.randomUUID)return;lastPingId=crypto.randomUUID();
+  pingSend('/rest/v1/stillwave_sessions',{id:lastPingId,device_id:deviceId(),preset:pid,minutes:minutes,completed:completed,pre:preRating,voice:S.guide?S.voice:null,mode:S.mode,platform:platform(),build:BUILD});}
+function pingPost(v){if(!S.share||!lastPingId)return;pingSend('/rest/v1/rpc/stillwave_rate',{session_id:lastPingId,rating:v});}
+
 /* ---------- calm check ---------- */
 let checkMode='pre',preRating=null;
 function renderCheck(){const el=$('checkDots');el.innerHTML='';for(let i=1;i<=5;i++){const b=document.createElement('button');b.className='dot';b.type='button';b.dataset.v=i;b.style.setProperty('--d',(4+i*3)+'px');b.setAttribute('aria-label',i+' of 5');if(checkMode==='pre'&&preRating===i)b.classList.add('on');b.addEventListener('click',()=>rate(i));el.appendChild(b);}
   $('checkLbl').textContent=checkMode==='post'?'How calm do you feel now?':'How calm are you right now?';}
 function rate(v){[...$('checkDots').children].forEach(b=>b.classList.toggle('on',+b.dataset.v===v));
-  if(checkMode==='post'){try{const l=readLog();if(l.length){l[l.length-1].post=v;localStorage.setItem('stillwave.log',JSON.stringify(l));}}catch(e){}checkMode='pre';preRating=null;$('checkLbl').textContent='Logged. Thank you.';renderPractice();setTimeout(renderCheck,1800);}
+  if(checkMode==='post'){try{const l=readLog();if(l.length){l[l.length-1].post=v;localStorage.setItem('stillwave.log',JSON.stringify(l));}}catch(e){}pingPost(v);checkMode='pre';preRating=null;$('checkLbl').textContent='Logged. Thank you.';renderPractice();setTimeout(renderCheck,1800);}
   else preRating=v;}
 
 /* ---------- guided first minute (embedded neural voices) ---------- */
@@ -735,6 +746,7 @@ bindRange('master','masterOut',()=>Math.round(S.master*100),v=>{S.master=v/100;s
 bindRange('target','targetOut',()=>S.customHz,v=>{S.customHz=clamp(v,.5,40);save();if(S.presetId==='custom'){applyPresetDefaults();renderPresetInfo();if(E.status!=='idle')retarget();else ui();}},v=>fmtHz(v)+' Hz');
 $('bells').checked=S.bells;$('bells').addEventListener('change',e=>{S.bells=e.target.checked;save();if(E.status!=='idle')scheduleBells(elapsed());});
 $('breathSound').checked=S.breathSound;$('breathSound').addEventListener('change',e=>{S.breathSound=e.target.checked;save();if(E.status!=='idle')scheduleBreath(elapsed());});
+$('share').checked=S.share;$('share').addEventListener('change',e=>{S.share=e.target.checked;save();});
 $('hapticRow').hidden=!canVibrate;$('haptics').checked=S.haptics;$('haptics').addEventListener('change',e=>{S.haptics=e.target.checked;save();if(S.haptics&&canVibrate)try{navigator.vibrate(20);}catch(x){}});
 seg('dimSeg',DIMS,String(S.dimAfter),v=>{S.dimAfter=+v;save();undim();});
 seg('intervalSeg',INTERVALS,String(S.interval),v=>{S.interval=+v;save();if(E.status!=='idle')scheduleBells(elapsed());});
